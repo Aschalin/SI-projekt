@@ -26,4 +26,24 @@ public class Network
 		}
 		return input;
 	}
+	void learn(double[][] input, double[][] output, double learn_factor, int epoch)
+	{
+		for(int epoka=0; epoka<epoch; epoka++)
+		{
+			
+			for(int set=0; set<input.length; set++)
+			{
+				double[][] layer_result = new double[1][output_size];
+				layer_result[0] = feed(input[set]);
+				for(int i=0; i<output[set].length; i++)
+				{
+					layer_result[0][i] = output[set][i] - layer_result[0][i] ;
+				}
+				for(int layer=layers.length-1; layer>=0; layer--)
+				{
+					layer_result = layers[layer].learn(layer_result, learn_factor);
+				}
+			}
+		}
+	}
 }

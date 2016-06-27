@@ -27,4 +27,19 @@ public class Layer
 		return result;
 	}
 	
+	public double[][] learn(double[][] input_errors_matrix, double learn_factor)
+	{
+		double[][] output_errors_matrix = new double[quantity][input_size];
+		for(int i=0; i<quantity; i++)
+		{
+			double neuron_error[] = new double[input_errors_matrix.length];
+			for(int j=0; j<input_errors_matrix.length; j++)
+			{
+				neuron_error[j] = input_errors_matrix[j][i];
+			}
+			output_errors_matrix[i] = neurons[i].learn(neuron_error, learn_factor);
+		}
+		return output_errors_matrix;
+	}
+	
 }
