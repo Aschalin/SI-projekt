@@ -5,7 +5,7 @@ public class Network
 	Layer[] layers;
 	int input_size, output_size;
 	
-	Network(int input_quantity, int layers_quantity, int[] layers_size, int[] activators)
+	Network(int input_quantity, int layers_quantity, int[] layers_size, Activator[] activators)
 	{
 		input_size = input_quantity;
 		output_size = layers_size[layers_quantity-1];
@@ -18,7 +18,7 @@ public class Network
 			layers[i] = new Layer(layers_size[i-1], layers_size[i], activators[0]);
 		}
 	}
-	
+
 	public double[] feed(double[] input)
 	{
 		for(Layer layer: layers)

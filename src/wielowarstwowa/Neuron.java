@@ -5,8 +5,10 @@ public class Neuron
 	double [] wages;
 	double wage0;
 	double memory[];
-	Neuron(int input_quantity)
+	Activator activator;
+	Neuron(int input_quantity, Activator activator)
 	{
+		this.activator = activator;
 		wages = new double[input_quantity];
 		for(double wage: wages)
 		{
@@ -14,7 +16,7 @@ public class Neuron
 		}
 		wage0 = (double) Math.random();
 	}
-	double feed(double[] x, int aktywator)
+	double feed(double[] x)
     {
 		memory = x;
 		double result = wage0;
@@ -22,30 +24,8 @@ public class Neuron
         {
         	result+=wages[i]*x[i];
         }
-		switch(aktywator)
-		{
-			case 0:
-				return aktywacja_lin(result);
-			case 1:
-				return aktywacja_sig(result);
-			default:
-				return aktywacja_sig(result);
-		}
+        return activator.Activate(result);
     }
-
-	double aktywacja_sig(double input)
-	{
-		return (1/(1+Math.exp(-0.5*input)));
-	}
-
-	double aktywacja_lin(double input)
-	{
-		return (input*0.5);
-	}
-	double aktywacja_tan(double input)
-	{
-		return ((Math.exp(2*input) - 1) / (Math.exp(2*input) + 1));
-	}
 	
 	double[] learn(double error_values[], double learn_factor)
 	{
@@ -54,7 +34,7 @@ public class Neuron
 		{
 			error+=error_values[i];
 		}
-		double learn_const= learn_factor*rozniczka_z_funkcji_aktywacji();
+		double learn_const= learn_factor*activator.Deactivate(input);
 		double return_errors[] = new double[wages.length];
 		for(int i = 0; i<wages.length; i++)
 		{
