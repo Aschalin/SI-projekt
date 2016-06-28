@@ -12,8 +12,8 @@ public class Tangensoidal implements Activator
 	@Override
 	public double Deactivate(double input)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		double der = 1d - input * input;
+		return der;
 	}
 
 }

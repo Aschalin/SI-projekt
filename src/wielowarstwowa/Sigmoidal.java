@@ -12,8 +12,8 @@ public class Sigmoidal implements Activator
 	@Override
 	public double Deactivate(double input)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		double derivative = 0.5 * input * (1d - input) + 0.1;
+		return derivative;
 	}
 
 }

@@ -13,7 +13,7 @@ public class Linear implements Activator
 	public double Deactivate(double input)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return 0.5;
 	}
 
 }
