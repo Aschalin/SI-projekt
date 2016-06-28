@@ -4,9 +4,10 @@ public class Layer
 {
 	Neuron[] neurons;
 	int quantity, input_size;
-	
-	public Layer(int input_quantity, int neurons_quantity)
+	int activator;
+	public Layer(int input_quantity, int neurons_quantity, int activator)
 	{
+		this.activator = activator;
 		input_size = input_quantity;
 		quantity = neurons_quantity;
 		neurons = new Neuron[neurons_quantity];
@@ -22,7 +23,7 @@ public class Layer
 		
 		for(int i=0; i<quantity; i++)
 		{
-			result[i]=neurons[i].feed(input);
+			result[i]=neurons[i].feed(input, activator); //NYI - trzeba przekazac odpowiedni numer aktywatora zaleznie od warstwy - recznie w deklaracji?
 		}
 		return result;
 	}
