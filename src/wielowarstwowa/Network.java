@@ -31,19 +31,25 @@ public class Network
 	{
 		for(int epoka=0; epoka<epoch; epoka++)
 		{
-			
 			for(int set=0; set<input.length; set++)
 			{
+				double error;
 				double[][] layer_result = new double[1][output_size];
-				layer_result[0] = feed(input[set]);
-				for(int i=0; i<output[set].length; i++)
+				do
 				{
-					layer_result[0][i] = output[set][i] - layer_result[0][i] ;
-				}
-				for(int layer=layers.length-1; layer>=0; layer--)
-				{
-					layer_result = layers[layer].learn(layer_result, learn_factor);
-				}
+					layer_result[0] = feed(input[set]);
+					error=0;
+					for(int i=0; i<output[set].length; i++)
+					{
+						layer_result[0][i] = output[set][i] - layer_result[0][i] ;
+						error +=layer_result[0][1];
+					}
+					for(int layer=layers.length-1; layer>=0; layer--)
+					{
+						layer_result = layers[layer].learn(layer_result, learn_factor);
+					}
+					System.out.println(error);
+				}while(error>0.15 && error<0.15);
 			}
 		}
 	}

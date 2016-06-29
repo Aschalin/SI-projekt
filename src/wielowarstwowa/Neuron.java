@@ -5,6 +5,7 @@ public class Neuron
 	double [] wages;
 	double wage0;
 	double memory[];
+	double e;
 	Activator activator;
 	Neuron(int input_quantity, Activator activator)
 	{
@@ -24,6 +25,7 @@ public class Neuron
         {
         	result+=wages[i]*x[i];
         }
+        e=result;
         return activator.Activate(result);
     }
 	
@@ -34,14 +36,14 @@ public class Neuron
 		{
 			error+=error_values[i];
 		}
-		double learn_const= learn_factor*activator.Deactivate(input);
+		double learn_const= learn_factor*error;
 		double return_errors[] = new double[wages.length];
 		for(int i = 0; i<wages.length; i++)
 		{
-			return_errors[i]=error*wages[i];
-			wages[i]+= learn_const * memory[i];
+			return_errors[i]= error * memory[i];
+			wages[i]+= learn_const *activator.Deactivate(e) * memory[i];
 		}
-		wage0 += learn_const;
+		wage0 += learn_const*activator.Deactivate(e);
 		return return_errors;
 	}
 }
