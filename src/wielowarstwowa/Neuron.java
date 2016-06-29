@@ -11,11 +11,11 @@ public class Neuron
 	{
 		this.activator = activator;
 		wages = new double[input_quantity];
-		for(double wage: wages)
+		for(int i = 0; i < wages.length; i++)
 		{
-			wage = (double) Math.random();
+			wages[i] = Math.random()*2-1;
 		}
-		wage0 = (double) Math.random();
+		wage0 = Math.random()*2-1;
 	}
 	double feed(double[] x)
     {
@@ -42,7 +42,15 @@ public class Neuron
 		{
 			return_errors[i]= error * memory[i];
 			wages[i]+= learn_const *activator.Deactivate(e) * memory[i];
+			System.out.println("wage n.o.: " + i + " wage value = "+ wages[i] + " learn const:" + learn_const + "  " + "e="+ e + " activator= " + activator.Activate(e) + " deactivator=  " + activator.Deactivate(e) + "  " + memory[i]);
 		}
+		try{
+			Thread.sleep(10);
+		}catch(Exception e)
+		{
+			System.out.println("sleep exception");
+		}
+
 		wage0 += learn_const*activator.Deactivate(e);
 		return return_errors;
 	}
